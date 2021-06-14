@@ -1,0 +1,4 @@
+node_modules
+apidocs/*
+!apidocs/status.json
+package-lock.json

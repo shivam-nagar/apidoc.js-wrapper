@@ -1,0 +1,233 @@
+<html lang="en" ng-app="docsApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>API Documentation</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicons -->
+	<link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A9K2xdfCRj5/wkY+f9K2xdf///wD///8A9K2xdfCRj5/wkY+f9K2xdf///wD///8A////AP///wD///8A////APStsXXoYUz/6GFM/+hhTP/X3fk3////APStsXXoYUz/6GFM/+hhTP/n6vsj////AP///wD///8A////AP///wD8/P4D6GFM/+hhTP/oYUz/9K2xdf///wD19v0M6GFM/+hhTP/oYUz/9K2xdf///wD///8A////AP///wD///8A////APStsXXoYUz/6GFM/+hhTP/e4/ou////APStsXXoYUz/6GFM/+hhTP/r7vwa////AP///wD///8A////AP///wD5+v4H6GFM/+hhTP/oYUz/9K2xdf///wDy9P0S6GFM/+hhTP/oYUz/9K2xdf///wD///8A////AP///wD///8A////APStsXXoYUz/6GFM/+hhTP/l6fsl////APStsXXoYUz/6GFM/+hhTP/v8f0V////AP///wD///8A////AP///wD2+P4M6GFM/+hhTP/oYUz/9K2xdf///wDu8f0Y6GFM/+hhTP/oYUz/9K2xdf///wD///8A////AP///wD///8A////APStsXXoYUz/6GFM/+hhTP/r7vwe////APStsXXoYUz/6GFM/+hhTP/z9f0P////AP///wD///8A////AP///wD09v0P6GFM/+hhTP/oYUz/9K2xdf///wDp7fwf6GFM/+hhTP/oYUz/9K2xdf///wD///8A////AP///wD///8A////APStsXXoYUz/6GFM/+hhTP/v8v0X////APStsXXoYUz/6GFM/+hhTP/4+f4K////AP///wD///8A////AP///wDw8/0V6GFM/+hhTP/oYUz/9K2xdf///wDk6fwm6GFM/+hhTP/oYUz/9K2xdf///wD///8A////AP///wD///8A////APStsXXoYUz/6GFM/+hhTP/z9f0R////APStsXXoYUz/6GFM/+hhTP/5+v4H////AP///wD///8A////AP///wDs8P0d6GFM/+hhTP/oYUz/9K2xdf///wDf5fsv6GFM/+hhTP/oYUz/9K2xdf///wD///8A////AP///wD///8A////APStsXXwkY+f8JGPn/StsXX///8A////APStsXXwkY+f8JGPn/StsXX///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AAJ5/AACOPwAAjj8AAMcfAADHHwAA448AAOOPAADxxwAA8ccAAPjjAAD44wAA/HEAAPxxAAD+eQAA//8AAA==" rel="icon" type="image/x-icon" />
+	<meta name="theme-color" content="#563d7c">
+
+    <!-- Custom styles for this template -->
+    <link href="./assets/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-light" style="zoom: 1;" ng-controller="appController as app" ng-class="{'body-locked':app.loading}">
+    <div id="page-loader" ng-if="app.loading">
+        <img src="assets/loader.gif" style="height: 200px; margin-top:200px;">
+        <h4> Recomputing API docs... </h4>
+        <small> This will take 10-15 mins, reload the page after a while. </small>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <a class="navbar-brand mr-auto mr-lg-0" href="#">API Documentation</a>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group mb-3" style="margin:0px !important">
+                    <input type="text" class="form-control" class="form-control mr-sm-2" ng-model="app.searchTerm"
+                        placeholder="Search" aria-label="Search" style="border: 0px;">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2" ng-click="app.searchTerm=''"
+                            style="background-color: #FFF;border: 0px;cursor: pointer;min-width:50px;">
+                            <a ng-if="app.searchTerm!=''" style="width:100%"><i class="fas fa-times-circle"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <div class="nav-scroller bg-white shadow-sm" ng-if="!app.loading">
+        <nav class="nav nav-underline">
+            <a class="nav-link active" href="#{{section}}" ng-repeat="(section, count) in app.allSections"
+                ng-if="app.validReposInSection(section).length>0"> {{ section }} </a>
+        </nav>
+    </div>
+
+
+    <main role="main" class="container" ng-if="!app.loading">
+        <div class="main-menu-container">
+
+            <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-secondary rounded shadow-sm">
+                <div class="lh-30 col-lg-8">
+                    <div class="btn-group-toggle" data-toggle="buttons" ng-if="!app.searchTerm || app.searchTerm==''">
+                        <label class="btn btn-dark">
+                            <input type="checkbox" ng-model="app.showDocumentedOnly">
+                            <span ng-if="!app.showDocumentedOnly"> Show Documented Repos Only</span>
+                            <span ng-if="app.showDocumentedOnly"> Show All Repos</span>
+                        </label>
+                        <label class="btn btn-link text-light" ng-if="!app.showDocumentedOnly">
+                            <input type="checkbox" ng-model="app.showDeprecated">
+                            <span ng-if="!app.showDeprecated">Show Deprecated Repos as well</span>
+                            <span ng-if="app.showDeprecated">Hide Deprecated Repos</span>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="lh-30 col-lg-4 row" style="text-align: center;">
+                    <div class="lh-30 col-lg-4">
+                        <h6 class="text-white lh-20">{{app.allRepos.length - app.getDeprecatedRepos().length}} </h6>
+                        <small>Live Repos</small>
+                    </div>
+                    <div class="lh-30 col-lg-4">
+                        <h6 class="text-white lh-20">{{app.getDocumentedRepos().length}}</h6>
+                        <small>Documented</small>
+                    </div>
+                    <div class="lh-30 col-lg-4">
+                        <h6 class="text-white lh-20">{{app.getDeprecatedRepos().length}}</h6>
+                        <small>Deprecated</small>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="app.searchTerm && app.searchTerm !== ''">
+                Searching for <b>{{app.searchTerm}}</b>
+            </div>
+
+            <div class="my-3 p-3 bg-white rounded shadow-sm" ng-repeat="(section, count) in app.allSections"
+                ng-if="app.validReposInSection(section).length>0">
+                <a id="{{section}}" style="position:absolute; margin-top:-130px;"> </a>
+                <h6 class="border-bottom border-gray pb-2 mb-0">{{section}}
+                    <span class="badge badge-pill bg-Dark text-white align-text-bottom float-right">{{count}}</span>
+                </h6>
+                <div class="media text-muted pt-3" ng-repeat="repo in app.validReposInSection(section)">
+                    <div class="mr-2 rounded" style="width:32px;height:32px;background: #007bff;"
+                        ng-style="repo.deprecated && {'background':'gray'}">
+                        <i class="fa-lang fab fa-{{repo.language}}" style=""></i>
+                    </div>
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
+                        ng-if="app.scheduledJobs[repo.repository_name]">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <a href="./apidocs/{{repo.repository_name}}/index.html" target="_blank">
+                                <strong class="text-gray-dark">{{repo.title}}</strong>
+                            </a>
+                            <span class="badge badge-pill bg-error align-text-bottom float-right">Processing...</span>
+                        </div>
+                    </div>
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
+                        ng-if="!app.scheduledJobs[repo.repository_name]">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <a href="./apidocs/{{repo.repository_name}}/index.html" target="_blank">
+                                <strong class="text-gray-dark">{{repo.title}}</strong>
+                            </a>
+
+                            <span ng-if="repo.has_doc && app.reloader">
+                                Last updated {{ app.getTimeAgo(repo) }} &nbsp; 
+                                <a href="./apidocs/{{repo.repository_name}}/index.html" target="_blank"
+                                    style="margin-right:5px;">API Doc</a>
+                            </span>
+                            <a ng-if="!repo.deprecated && repo.api_documentation && !repo.has_doc" disabled="disabled"
+                                style="margin-right:5px;">Documentation missing</a>
+                            <span ng-if="repo.deprecated"
+                                class="badge badge-pill bg-error align-text-bottom float-right">Deprecated</span>
+                            <span class="badge badge-pill bg-error align-text-bottom float-right"
+                                ng-if="!repo.deprecated && !repo.api_documentation">
+                                No documentation needed
+                            </span>
+                        </div>
+                        <span class="d-block">
+                            {{repo.desc || repo.sub_section || "No Description"}} &nbsp;
+                            <span class="float-right" ng-if="app.isDocumentable(repo)">
+								<i class="fas fa-code"></i>
+								<span class="badge badge-pill bg-error">
+									<a href="https://bitbucket.org/hanselio/{{repo.repository_name}}" target="_blank">
+										source</a>
+									&nbsp;&nbsp; | 
+								</span>
+                                <i class="fas fa-code-branch"></i>
+                                <span class="badge badge-pill bg-error">
+                                    <a href="" ng-click="app.openPrompt(repo)" title="change build branch">
+                                        {{ app.getRepoBranch(repo)}}
+                                    </a> &nbsp; &nbsp;
+                                    <a href="" ng-click="app.requestRepoRebuild(repo, true)">
+                                        [ rebuild ]
+                                    </a>
+                                </span>
+                                <span ng-if="app.showELB">
+                                    <span class=""
+                                        ng-if="repo.elb_stack != '' && repo.elb_stack.split(',').length >= 1"> |
+                                        <i class="fas fa-cubes"></i></span>
+                                    <span class="badge badge-pill bg-error"
+                                        ng-repeat="(i,elb) in repo.elb_stack.split(',')">
+                                        <a target="_blank"
+                                            href="https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#LoadBalancers:search={{elb}};sort=loadBalancerName">
+                                            {{elb}}
+                                        </a>
+                                        <span ng-if="i < repo.elb_stack.split(',').length-1">,</span>
+                                    </span>
+                                </span>
+                            </span>
+
+                        </span>
+                    </div>
+                    <!-- 
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">{{repo.title}}</strong>
+                        {{repo.desc}}
+                    </p> -->
+                </div>
+                <small class="d-block text-right mt-3">
+                    Live Repos <b>{{count - app.getDeprecatedRepos(section).length}} </b> |
+                    Documented
+                    <b>{{app.getDocumentedRepos(section).length}} </b> |
+                    Deprecated
+                    <b>{{app.getDeprecatedRepos(section).length}}</b>
+                </small>
+            </div>
+        </div>
+        <div class="footer-container">
+            <img ng-if="app.randomVal == 1" src="assets/sw_document_band1.svg" class="align-middle">
+            <img ng-if="app.randomVal == 2" src="assets/sw_document_band2.svg" class="align-middle">
+            <img ng-if="app.randomVal == 3" src="assets/sw_document_band3.svg" class="align-middle">
+            <img ng-if="app.randomVal == 4" src="assets/sw_document_band4.svg" class="align-middle">
+        </div>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.js"></script>
+    <script src="assets/script.js"></script>
+
+
+    <script>
+        window.__vidChanged = function (state) {
+            if (state === 1) {
+                document.body.dispatchEvent(new Event('vidChanged'))
+            }
+        }
+        if (document.querySelector('#movie_player')) {
+            document.querySelector('#movie_player').addEventListener('onStateChange', '__vidChanged');
+        }
+    </script>
+</body>
+
+</html>
